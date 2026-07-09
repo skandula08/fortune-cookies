@@ -82,9 +82,9 @@ func fortune(s ssh.Session) (tea.Model, []tea.ProgramOption) {
 		term:      pty.Term,
 		width:     pty.Window.Width,
 		height:    pty.Window.Height,
-		infoStyle: lipgloss.NewStyle().Foreground(lipgloss.Color("6")).Align(lipgloss.Center),
-		txtStyle:  lipgloss.NewStyle().Foreground(lipgloss.Color("10")).Align(lipgloss.Center),
-		quitStyle: lipgloss.NewStyle().Foreground(lipgloss.Color("8")),
+		infoStyle: lipgloss.NewStyle().Foreground(lipgloss.Color("#851104")).Align(lipgloss.Center),
+		txtStyle:  lipgloss.NewStyle().Foreground(lipgloss.Color("#1d77b8")).Align(lipgloss.Center),
+		quitStyle: lipgloss.NewStyle().Foreground(lipgloss.Color("#d75218")),
 		window:    tea.WindowSizeMsg{Width: pty.Window.Width, Height: pty.Window.Height},
 		bg:        "light",
 	}
@@ -197,14 +197,15 @@ func renderCookie() ([]string, error) {
 				uint8(g>>8),
 				uint8(b>>8),
 			))
-
+			// if color != lipgloss.Color("#FFFFFF") {
 			line.WriteString(
 				lipgloss.NewStyle().
 					Foreground(color).
-					// Background(color).
+					Background(color).
 					Align(lipgloss.Center).
 					Render(".."),
 			)
+			// }
 		}
 		lines = append(lines, line.String())
 	}
@@ -212,6 +213,8 @@ func renderCookie() ([]string, error) {
 }
 
 func (m model) View() tea.View {
+
+	background := lipgloss.Color("#f5d79f")
 
 	ascii, err := renderCookie()
 	if err != nil {
@@ -221,23 +224,35 @@ func (m model) View() tea.View {
 	sprite := strings.Join(ascii, "\n")
 	s := rules()
 	rulesBox := lipgloss.NewStyle().
-		Border(lipgloss.ThickBorder(), true, true, true, true).
-		BorderForeground(lipgloss.Color("228")).
+		Border(lipgloss.NormalBorder(), true, true, true, true).
+		BorderForeground(lipgloss.Color("#d75218")).
+		BorderBackground(background).
+		Foreground(lipgloss.Color("#782907")).
 		PaddingRight(1).
 		PaddingLeft(1).
+		Background(background).
+		Bold(true).
 		Align(lipgloss.Center).
 		Render(s)
 
 	content := rulesBox +
-		"\n" +
+		"\n\n" +
 		m.infoStyle.Render(m.message) +
-		"\n" +
+		"\n\n" +
+		// lipgloss.NewStyle().Background(background).Render(sprite) +
 		sprite +
 		"\n" +
 		m.quitStyle.Render("Press 'q' to quit")
 
+	bg := lipgloss.NewStyle().
+		Background(background)
+		// Foreground(lipgloss.Color("#cdd6f4"))
+
 	fortunecookies := lipgloss.NewStyle().
-		Border(lipgloss.ThickBorder(), true, true, true, true).
+		Background(background).
+		Border(lipgloss.DoubleBorder(), true, true, false, true).
+		BorderBackground(background).
+		BorderForeground(lipgloss.Color("#782907")).
 		Width(m.width).
 		Height(m.height).
 		Render(lipgloss.Place(
@@ -248,13 +263,15 @@ func (m model) View() tea.View {
 			content,
 		))
 
-	v := tea.NewView(lipgloss.Place(
+	v := tea.NewView((lipgloss.Place(
 		m.width,
-		m.height-1,
+		m.height,
 		lipgloss.Center,
 		lipgloss.Center,
 		fortunecookies,
-	))
+		lipgloss.WithWhitespaceChars(" "),
+		lipgloss.WithWhitespaceStyle(bg),
+	)))
 	v.AltScreen = true
 	return v
 }

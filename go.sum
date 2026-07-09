@@ -24,6 +24,8 @@ github.com/charmbracelet/x/conpty v0.1.1 h1:s1bUxjoi7EpqiXysVtC+a8RrvPPNcNvAjfi4
 github.com/charmbracelet/x/conpty v0.1.1/go.mod h1:OmtR77VODEFbiTzGE9G1XiRJAga6011PIm4u5fTNZpk=
 github.com/charmbracelet/x/errors v0.0.0-20251110184232-6ab307057ac7 h1:4EG8pCHK5fa8dIxv97VHC8hdkJAz6QNm1WB9BuD/WhY=
 github.com/charmbracelet/x/errors v0.0.0-20251110184232-6ab307057ac7/go.mod h1:O2BTD/aMVQDmrvqroIO3fB6zXUuU07ZpVt21QTmZjRg=
+github.com/charmbracelet/x/exp/charmtone v0.0.0-20260705004817-2cc9a8fe1146 h1:vFivXXqVdmmvek53YYT/cBTVZ+AmnHbnRP54+PLniP0=
+github.com/charmbracelet/x/exp/charmtone v0.0.0-20260705004817-2cc9a8fe1146/go.mod h1:nsExn0DGyX0lh9LwLHTn2Gg+hafdzfSXnC+QmEJTZFY=
 github.com/charmbracelet/x/exp/golden v0.0.0-20250806222409-83e3a29d542f h1:pk6gmGpCE7F3FcjaOEKYriCvpmIN4+6OS/RD0vm4uIA=
 github.com/charmbracelet/x/exp/golden v0.0.0-20250806222409-83e3a29d542f/go.mod h1:IfZAMTHB6XkZSeXUqriemErjAWCCzT0LwjKFYCZyw0I=
 github.com/charmbracelet/x/term v0.2.2 h1:xVRT/S2ZcKdhhOuSP4t5cLi5o+JxklsoEObBSgfgZRk=
