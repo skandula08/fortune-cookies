@@ -38,12 +38,19 @@ func main() {
 	s, err := wish.NewServer(
 		wish.WithAddress(net.JoinHostPort(host, port)),
 		wish.WithHostKeyPath(".ssh/id_ed25519"),
+
+		wish.WithMaxTimeout(10*time.Minute),
+
+		// PUBLIC SECURITY: Close connection immediately if the SSH handshake takes too long
+		wish.WithIdleTimeout(30*time.Second),
+
 		wish.WithMiddleware(
 			bubbletea.Middleware(fortune),
 			activeterm.Middleware(), // Bubble Tea apps usually require a PTY.
 			logging.Middleware(),
 		),
 	)
+
 	if err != nil {
 		fmt.Errorf("Could not start server", "error", err)
 	}
